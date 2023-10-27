@@ -93,7 +93,6 @@ lxc-attach -n $CTID -- /root/aws/install
 echo -n "Done installing AWS CLI"
 echo -n "Setting up Eviroment"
 lxc-attach -n $CTID -- aws configure set aws_access_key_id "$AWSAPI" --profile user2 
-lxc-attach -n $CTID -- aws configure set aws_secret_access_key "$AWSAPIKEY" --profile user2
 lxc-attach -n $CTID -- aws configure set region "us-east-1" --profile user2
 lxc-attach -n $CTID -- aws configure set output "text" --profile user2
 wget https://raw.githubusercontent.com/ezaratemx/provisioning/main/dnsupdate.sh
