@@ -90,3 +90,16 @@ echo -n "Installing AWS CLI"
 lxc-attach -n $CTID -- wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
 lxc-attach -n $CTID -- unzip /root/awscli-exe-linux-x86_64.zip
 lxc-attach -n $CTID -- /root/aws/install
+echo -n "Done installing AWS CLI"
+echo -n "Setting up Eviroment"
+lxc-attach -n $CTID -- aws configure set aws_access_key_id "$AWSAPI" --profile user2 
+lxc-attach -n $CTID -- aws configure set aws_secret_access_key "$AWSAPIKEY" --profile user2
+lxc-attach -n $CTID -- aws configure set region "us-east-1" --profile user2
+lxc-attach -n $CTID -- aws configure set output "text" --profile user2
+wget https://raw.githubusercontent.com/ezaratemx/provisioning/main/dnsupdate.sh
+sed -i "s/XXXX/$HOSTNAME/g" dnsupdate.sh 
+sed -i "s/YYYY/$ZONEID/g" dnsupdate.sh
+sed -i "s/ZZZZ/$NAMESERVER/g" dnsupdate.sh
+pct push $CTID dnsupdate.sh /root/dnsupdate.sh
+rm dnsupdate.sh
+echo -n "Finished"
