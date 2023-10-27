@@ -99,7 +99,8 @@ echo -n "Done installing AWS CLI"
 print_dot_wait 2
 clear
 echo -n "Setting up Evironment"
-lxc-attach -n $CTID -- aws configure set aws_access_key_id "$AWSAPI" --profile user2 
+lxc-attach -n $CTID -- aws configure set aws_access_key_id "$AWSAPI" --profile user2
+lxc-attach -n $CTID -- aws configure set aws_secret_access_key "$AWSKEY" --profile user2
 lxc-attach -n $CTID -- aws configure set region "us-east-1" --profile user2
 lxc-attach -n $CTID -- aws configure set output "text" --profile user2
 wget https://raw.githubusercontent.com/ezaratemx/provisioning/main/dnsupdate.sh
