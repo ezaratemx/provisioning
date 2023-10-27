@@ -110,3 +110,5 @@ pct push $CTID dnsupdate.sh /root/dnsupdate.sh
 lxc-attach -n $CTID -- chmod +x /root/dnsupdate.sh
 rm dnsupdate.sh
 echo -n "Finished"
+echo -n
+echo -n
