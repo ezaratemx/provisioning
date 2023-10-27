@@ -100,6 +100,6 @@ sed -i "s/XXXX/$HOSTNAME/g" dnsupdate.sh
 sed -i "s/YYYY/$ZONEID/g" dnsupdate.sh
 sed -i "s/ZZZZ/$NAMESERVER/g" dnsupdate.sh
 pct push $CTID dnsupdate.sh /root/dnsupdate.sh
-lxc
+lxc-attach -n $CTID -- chmod +x /root/dnsupdate.sh
 rm dnsupdate.sh
 echo -n "Finished"
