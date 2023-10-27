@@ -51,5 +51,3 @@ EOF
 
 echo "Changing IP address of $hostname from $oldip to $newip"
 aws route53 change-resource-record-sets --hosted-zone-id $zoneid --change-batch "file://$tmp"
-
-rm "$tmp"
