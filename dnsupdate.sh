@@ -11,7 +11,7 @@ nameserver=ZZZZ
 #export AWS_PROFILE=examplecom
 
 # Get your external IP address using opendns service
-newip=dig +short myip.opendns.com @resolver1.opendns.com
+newip=$(dig +short myip.opendns.com @resolver1.opendns.com)
 if [[ ! $newip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
 then
     echo "Could not get current IP address: $newip"
@@ -19,7 +19,7 @@ then
 fi
 
 # Get the IP address record that AWS currently has, using AWS's DNS server
-oldip=dig +short "$hostname" @"$nameserver"
+oldip=$(dig +short "$hostname" @"$nameserver")
 if [[ ! $oldip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
 then
     echo "Could not get old IP address: $oldip"
@@ -33,7 +33,7 @@ then
 fi
 
 # aws route53 client requires the info written to a JSON file
-tmp=$(mktemp /tmp/dynamic-dns.json)
+tmp=$(mktemp /tmp/dynamic-dns.XXX)
 cat > ${tmp} << EOF
 {
     "Comment": "Auto updating @ date",
@@ -53,4 +53,3 @@ echo "Changing IP address of $hostname from $oldip to $newip"
 aws route53 change-resource-record-sets --hosted-zone-id $zoneid --change-batch "file://$tmp"
 
 rm "$tmp"
-
