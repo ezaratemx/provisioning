@@ -33,7 +33,7 @@ then
 fi
 
 # aws route53 client requires the info written to a JSON file
-tmp=$(mktemp /tmp/dynamic-dns.XXXXXXXX)
+tmp=$(mktemp /tmp/dynamic-dns.json)
 cat > ${tmp} << EOF
 {
     "Comment": "Auto updating @ date",
