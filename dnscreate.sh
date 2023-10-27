@@ -80,17 +80,24 @@ echo -n "Waiting for $wait_time seconds: "
 print_dot_wait $waittime
 echo "Done waiting"
 echo -n "Executing LXC Setup"
-lxc-attach -n $CTID -- apt update
 echo -n "Executing LXC Update"
+lxc-attach -n $CTID -- apt update
+lxc-attach -n $CTID -- apt upgrade -y
+print_dot_wait 2
+clear
 echo -n "Installing additional packages"
 lxc-attach -n $CTID -- apt install -y unzip
-##lxc-attach -n $CTID -- apt install -y curl
+lxc-attach -n $CTID -- apt install -y curl
 echo -n "Done installing additional packages"
+print_dot_wait 2
+clear
 echo -n "Installing AWS CLI"
 lxc-attach -n $CTID -- wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
 lxc-attach -n $CTID -- unzip /root/awscli-exe-linux-x86_64.zip
 lxc-attach -n $CTID -- /root/aws/install
 echo -n "Done installing AWS CLI"
+print_dot_wait 2
+clear
 echo -n "Setting up Eviroment"
 lxc-attach -n $CTID -- aws configure set aws_access_key_id "$AWSAPI" --profile user2 
 lxc-attach -n $CTID -- aws configure set region "us-east-1" --profile user2
