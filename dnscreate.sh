@@ -107,8 +107,9 @@ wget https://raw.githubusercontent.com/ezaratemx/provisioning/main/dnsupdate.sh
 sed -i "s/XXXX/$HOSTNAME/g" dnsupdate.sh 
 sed -i "s/YYYY/$ZONEID/g" dnsupdate.sh
 sed -i "s/ZZZZ/$NAMESERVER/g" dnsupdate.sh
-pct push $CTID dnsupdate.sh /root/dnsupdate.sh
-lxc-attach -n $CTID -- chmod +x /root/dnsupdate.sh
+pct push $CTID dnsupdate.sh /opt/dnsupdate.sh
+lxc-attach -n $CTID -- chmod +x /opt/dnsupdate.sh
+lxc-attach -n $CTID -- (crontab -l 2>/dev/null; echo "*/5 * * * * /opt/dnsupdate.sh") | crontab -
 rm dnsupdate.sh
 echo -n "Finished"
 echo -n
