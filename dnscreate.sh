@@ -109,7 +109,7 @@ sed -i "s/YYYY/$ZONEID/g" dnsupdate.sh
 sed -i "s/ZZZZ/$NAMESERVER/g" dnsupdate.sh
 pct push $CTID dnsupdate.sh /opt/dnsupdate.sh
 lxc-attach -n $CTID -- chmod +x /opt/dnsupdate.sh
-lxc-attach -n $CTID -- crontab -l|sed "\$a*/10 * * * * sh /opt/dnsupdate.sh"|crontab -
+lxc-attach -n $CTID -- crontab -e|sed "\$a*/10 * * * * sh /opt/dnsupdate.sh"|crontab -
 rm dnsupdate.sh
 echo -n "Finished"
 echo -n
